@@ -1,80 +1,150 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-   <title> Maafin aku ya! </title>
+   <title>chan_bot</title>
+
+<style>
+
+*, html,
+body {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   background-color: #21D8C8;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+table tr td {
+   padding: 10px;
+}
+
+.wrapper {
+   display: flex;
+   align-items: center;
+   flex-direction: column;
+   text-align: center;
+}
+
+input {
+   border: none;
+   border-radius: 10px;
+   background-color: #eaeaea;
+   color: #222222;
+   padding: 16px;
+   margin-top: 10px;
+   font-size: 24px;
+}
+
+.row {
+   display: flex;
+   flex-direction: row;
+}
+
+button {
+   border: none;
+   background-color: lightslategrey;
+   font-size: 24px;
+   padding: 16px;
+   margin-left: 10px;
+   height: 65px;
+   margin-top: 10px;
+   font-weight: 600;
+   width: 5em;
+   border-radius: 8px;
+}
+
+</style>
 
 </head>
 
 <body>
-
-   <h1> MAAFIN AKU YA! <h1>
-
-         <img alt="hati" src="hati.png" height="200" />
-
-         <h1 style="#">Aku minta maaf udah bikin kamu marah</h1>
-
-         <div id="By" style="position:absolute; left:64px; top:370px; width:600px; height:600px;">
-
-            <button type="button" value=" YA " onClick="f1()" style="font-size:20px">Ya</button>
-
+   <div class="container">
+   <table border="1">
+      <tr>
+      <td><div class="wrapper">
+         <h1 id="pertanyaan"></h1>
+         <div class="row">
+            <input id="jawaban" type="text" placeholder="silahkan jawab">
+            <button onclick="botStart()">KIRIM</button>
          </div>
+      </div></td>
+      </tr>
+   </table>
+   </div>
+   <!-- Project -->
+<script type="text/javascript" >
 
-         <div ID="Bn" style="position:absolute; left:166px; top:370px; width:600px; height:600px;">
+const pertanyaan = document.getElementById("pertanyaan")
+const jawaban = document.getElementById("jawaban")
 
-            <button type="button" value=" TIDAK " onMouseOver="f()" style="font-size:20px">Tidak</button>
 
-         </div>
+let init = 0
 
-</body>
+const botSay = (data) => {
+   return [
+      "Halo, aku adalah chan_bot. Siapa nama kamu?",
+      `Salam kenal ya ${data?.nama}. Berapa usia kamu ?`,
+      `oohhhh ${data?.usia}, hobi nya apa?`,
+      `hobinya ${data?.hoby} ya, udah punya pacar ?`,
+      `ohhh ${data?.pacar}, ya udah kalo gitu, udahan yahhh?`,
+      ]
+}
 
-<script type="text/javascript">
-   flag = 1
 
-   function f1() {
+pertanyaan.innerHTML = botSay() [0]
 
-      alert("Makasih ya udah maafin aku!")
-
+function botStart() {
+   init++
+   if (init === 1) {
+      botDelay({nama : jawaban.value})
+   }else if (init === 2) {
+      botDelay({usia : jawaban.value})
+   }else if (init === 3) {
+      botDelay({hoby : jawaban.value})
+   }else if (init === 4) {
+      botDelay({pacar : jawaban.value})
+   }else if (init === 5) {
+      finishing()
+   }else {
+      botEnd()
    }
+}
 
-   function f() {
 
-      if (flag == 1)
+function botDelay(jawabanUser) {
+   setTimeout(() => {
+   pertanyaan.innerHTML = botSay(jawabanUser)[init]
+   
+   jawaban.value = ""
+   }, 1000)
+}
 
-      {
+   
+function finishing() {
+   setTimeout(() => {
+   pertanyaan.innerHTML = `makasih ya udah maen di chan_bot`
+   
+   jawaban.value = ""
+   }, 1000)
+}
 
-         Bn.style.top = 600
+function botEnd() {
+   window.location.reload()
+}
 
-         Bn.style.left = 300
 
-         flag = 2
-
-      }
-
-      else if (flag == 2)
-
-      {
-
-         Bn.style.top = 800
-
-         Bn.style.left = 50
-
-         flag = 3
-
-      }
-
-      else if (flag == 3)
-
-      {
-
-         Bn.style.top = 370
-
-         Bn.style.left = 166
-
-         flag = 1
-      }
-
-   }
 </script>
+</body>
 
 </html>
